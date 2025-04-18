@@ -1,0 +1,2724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H93 MusicPlayer</title>
+  <link rel="preload" href="/styles.min.css" as="style">
+    
+  <link rel="stylesheet" href="/styles.min.css">
+</head>
+<body>
+
+
+
+    <div class="bye-container" id="byeCont" style="display: none;">
+
+        <div class="wrapper">
+            <div class="floor"></div> 
+            <div class="overlay2"></div>
+            <canvas id="canvas" width="600" height="150"></canvas>
+        </div>
+
+        <div class="wrapper" id="roof">
+            <div class="floor"></div> 
+            <div class="overlay2"></div>
+            <canvas id="canvas" width="600" height="150"></canvas>
+        </div>
+
+</div>
+
+
+
+    <div class="config-container" id="configCont" style="display: none;">
+
+        
+        <div class="config-disclaimer">NOT AT THE MOMENT, SORRY... 
+</div>
+<pre>
+        ／＞　 フ
+       | 　_　_| 
+     ／` ミ＿xノ 
+    /　　　　  |
+   /　 ヽ　　 ﾉ
+   │　　| |  |
+／￣|   | |　|
+ (￣ヽ＿ヽ_)__)
+＼二)
+</pre>
+<div class="config-mode"> SYSTEM CONFIGURATION  
+</div>
+       
+        <p class="back-text2" onclick="toggleContainer2()" style="cursor: pointer;">Click here to return to the menu</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="about-container" id="aboutCont" style="display: none;">
+       <div class="about-text">
+        <h1 class="system-info">SYSTEM INFO: <div id="hostname">LOADING...</div></h1>
+        <span>
+        HANGAR93 Web Music Player -
+
+        Version: 1.0 (Initial Release)
+        Compatibility: Mozilla Firefox (Only) -
+
+        [CSS & JS ONLY: Fully powered by CSS and JavaScript—no images, no additional resources]
+        </span>
+        <span>
+            **Feedback & Suggestions:**
+            - I welcome all feedback and suggestions. Your thoughts and criticism help me improve and evolve the application. Please don't hesitate to share your ideas and opinions
+        </span>
+        <span>
+            **Key Features:**
+            - MP3 and FLAC playback
+            - Customizable playlists
+            - Real-time sound controls
+            - Enhanced audio effects 
+            - Optimized for Mozilla Firefox
+        </span>
+        <span>
+            **Future Updates:**//
+            **Transition to API-based Music Streaming:**
+                - Replace local file management with an API that dynamically streams music
+                - This will allow for easier updates to the music library, enabling new songs to be added without the need to modify files locally
+                - Users will be able to search, filter, and load playlists in real-time from a remote database via the API
+           **Advanced Audio Functions:**
+                - The audio controls will become more precise and advanced, including more customizable settings for sound effects such as reverb, pitch, and more
+                - Users will have better control over the sound profile, allowing for a richer and more tailored audio experience
+            - Support for more audio formats (WAV, OGG)
+            - Potential support for other browsers in the future
+        </span>
+        <span>
+        Playlist info (EUROBEAT version):
+            1- "Chemical Love"
+            2- "Running in the 90s"
+            3- "No One Sleep in Tokyo"
+            4- "Night of Fire"
+            5- "One Night in Arabia"
+            6- "Deja Vu"
+            7- "Speed Lover"
+            8- "Crazy for Love"
+            9- "GAS GAS GAS"
+            10- "Adrenaline"
+            11- "The Top"
+            12- "Space Boy"
+            13- "Be My Babe"
+            14- "Remember Me"
+            15- "Don't Stop the Music"
+            16- "Heartbeat"
+            17- "Save Me"
+            18- "Don't Stand So Close"
+            19- "Love & Money"
+            20- "Killing My Love"
+            21- "Dancing"
+            22- "Lost into the Night"
+            23- "Stay"
+            24- "Boom Boom Japan"
+            25- "Black Out"
+            26- "Beat of the Rising Sun"
+            27- "Gimme The Night"
+            28- "Forever Young"
+            29- "I Wanna Be The Night"
+            30- "Rider Of The Sky"
+            31- "Golden Age"
+            32- "You're Gonna Be"
+            33- "Emotional Fire"
+            34- "Express Love"
+            35- "Power"
+            36- "Futureland"
+            37- "Looka Bomba"
+            38- "Rockin' Hardcore"
+            39- "Midnight Love"
+            40- "Mad Desire"
+            41- "Disconnected"
+            42- "When The Sun Goes Down"
+        </span>
+        <span>
+            Ty so much__
+        </span>
+        <p class="back-text" onclick="toggleContainer()" style="cursor: pointer;">Click here to return to the menu</p>
+    </div>
+    </div>
+
+
+    <ul style="display: block;">
+        <li id="goBtn"><span>  GO  </span></li>
+        <li ><span onclick="toggleContainer2()">CONFIG</span></li>
+        <li><span  onclick="toggleContainer()">ABOUT</span></li>
+        <li ><span onclick="closeWindow()">  BYE  </span></li>
+    </ul>
+
+      <div class="lines" style="display: block;"></div>
+<div class="main" style="display: block;">
+	<div class="noise"></div>
+	<div class="vhs" data-splitting>PAUSE || </div>
+    <div class="ch">--:--</div>
+    <div id="vhs-date" class="ch5"></div>
+    <div id="vhs-time" class="ch6"></div>
+    <div class="ch2">CH03</div>
+    <div class="ch3"> ●----*------●</div>
+    <div class="ch4"> SOURCE: EUROBEAT</div>
+    <div class="nameTag" >HANGAR93: MUSIC PLAYER</div>
+
+	<div class="counter">SP    <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label></div>
+</div>
+
+
+
+    <!-- Nuevos controles -->
+    <input type="range" id="distortion-control" min="0" max="100" value="0" step="1">
+    <button id="delayBtn">((●))</button>
+    <input id="pitch-control" type="range" min="0" max="100" value="50" />
+
+
+
+    <input id="bassControl" type="range" value="0" min="-30" max="30">
+    
+   
+    <input id="trebleControl" type="range" value="0" min="-30" max="30">
+
+
+<input id="balanceControl" type="range" min="-1" max="1" step="0.01" value="0">
+
+   
+
+    <!-- Reproductor de audio -->
+    <audio id="audio" controls>
+      
+    </audio>
+
+    <!-- Controles -->
+    <div class="info-bar">PROGRESS
+    </div>
+    <div class="info-bar2">VOLUME
+    </div>
+    <div class="info-bar3">BASS
+    </div>
+    <div class="info-bar4">TREBLE
+    </div>
+    <div class="info-bar5">BALANCE
+    </div>
+    <div class="info-bar6">MIN
+    </div>
+    <div class="info-bar7">MAX
+    </div>
+    <div class="info-bar8">MIN
+    </div>
+    <div class="info-bar9">MAX
+    </div>
+    <div class="info-bar10">L
+    </div>
+    <div class="info-bar11">R
+    </div>
+    <div class="info-bar12">MIN
+    </div>
+    <div class="info-bar13">MAX
+    </div>
+    <div class="info-bar14">DISTORTION
+    </div>
+    <div class="info-bar15">SPEED
+    </div>
+    <div class="info-bar16">MIN
+    </div>
+    <div class="info-bar17">MAX
+    </div>
+    <div class="info-bar18">MIN
+    </div>
+    <div class="info-bar19">MAX
+    </div>
+    <div class="info-bar20">ECHO
+    </div>
+  
+
+
+ 
+
+    <button id="stopBtn">
+        <div class="icon-stop">
+            <div class="square3">
+            </div>
+        </div>
+    </button>
+
+
+    <button id="prevBtn">
+        <div class="icon-prev">
+            <div class="triangle">
+            </div>
+            <div class="triangle2">
+            </div>
+        </div>
+    </button>
+
+
+    <button id="playPauseBtn">
+        <div class="icon-play">
+        </div>
+        <div class="icon-pause">
+            <div class="square">
+            </div>
+            <div class="square2">
+            </div>
+        </div>
+    </button>
+   
+    <button id="nextBtn">
+        <div class="icon-next">
+            <div class="triangle3">
+            </div>
+            <div class="triangle4">
+            </div>
+        </div>
+    </button>
+    <input id="progressBar" type="range" value="0" min="0" max="100">
+    <input id="volumeControl" type="range" value="0.1" min="0" max="1" step="0.01">
+   
+
+
+       <!-- Logo en la esquina izquierda -->
+       <div class="logo">
+        <a href="#"><img src="assets/logoNegative.png" alt="logo" /><span class="laugh-sound">ワハハ!!</span></a>
+      </div>
+
+  <div class="cinta-container">
+    <div class="cinta">
+
+
+        <div class="xdd" style="display: none;" >*Wrrr-
+        </div>
+        
+        <div class="xdd" style="display:none;" id="xdd2">wrrr!*
+        </div>
+
+
+
+
+        <div class="logo-sticker">
+        </div>
+        <div class="logo-sticker2">
+        </div>
+        <div class="logo-sticker3">
+        </div>
+        <div class="logo-sticker4">
+        </div>
+
+
+        <div class="cara-cinta">A
+        </div>
+
+
+        <div class="minutes">∞
+        </div>
+        <div class="minutes2">min.
+        </div>
+        
+
+
+        <div class="cool">HANGAR93 OBSCENE RECORDS
+        </div>
+        <div class="cool2">
+        </div>
+        <div class="cool3">80s VIBES
+        </div>
+        <div class="cool4">失恋!
+        </div>
+        
+
+
+
+
+        <div class="tagnames">
+            <div class="index">INDEX
+            </div>
+           
+            <div class="indexline">
+            </div>
+            <div class="indexline2">
+            </div>
+            <div class="index2">NR.
+            </div>
+            <div class="index3">
+            </div>
+            <div class="index4">ON
+            </div>
+            <div class="index5">
+            </div>
+            <div class="index6">OFF
+            </div>
+            <div class="info"  id="trackArtist"  style="display: block;">
+            </div>
+            <div class="info2" id="trackTitle"   style="display: block;">
+            </div>
+        </div>
+        
+
+        <div class="marca">
+        </div>
+        
+        <div class="marca2">HANGAR93
+        </div>
+
+
+        <div class="rb3">
+        </div>
+      
+
+        <div class="cylinder" id="bobina">
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+
+           
+          </div>
+
+          <div class="cylinder" id="bobina2">
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+
+          </div>
+
+        
+        <div class="bobina">
+        </div>
+        <div class="bobina2">
+        </div>
+        <div class="bobina3">
+        </div>
+
+
+        <div class="junta">
+        </div>
+        <div class="junta2">
+        </div>
+        <div class="junta3">
+        </div>
+        <div class="junta4">
+        </div>
+        <div class="junta5">
+        </div>
+        <div class="junta6">
+        </div>
+        <div class="junta7">
+        </div>
+        <div class="junta8">
+        </div>
+        <div class="junta9">
+        </div>
+        <div class="junta10">
+        </div>
+        <div class="junta11">
+        </div>
+
+
+
+
+
+
+        <div class="contenedorq">
+            <div class="agujeroq"></div>
+          </div>
+          
+          <div class="contenedorq2">
+            <div class="agujeroq"></div>
+          </div>
+          
+          <div class="contenedorq3">
+            <div class="agujeroq"></div>
+          </div>
+          
+          <div class="contenedorq4">
+            <div class="agujeroq"></div>
+          </div>
+          
+
+          <div class="rotorhole">
+        </div>
+        <div class="rotorhole2">
+        </div>
+        <div class="rotorhole3">
+        </div>
+        <div class="rotorhole4">
+        </div>
+
+        <div class="window">
+        </div>
+        <div class="window2">
+        </div>
+        <div class="window3">
+        </div>
+
+        <div class="cover">
+        </div>
+        <div class="cover2">
+        </div>
+        <div class="cover3">
+        </div>
+        <div class="cover4">
+        </div>
+        <div class="cover5">
+        </div>
+        <div class="cover6">
+        </div>
+        <div class="cover7">
+        </div>
+        <div class="cover8">
+        </div>
+
+
+
+
+
+        <div class="rotor">
+        </div>
+        <div class="rotor2">
+        </div>
+        <div class="rotor3">
+        </div>
+        <div class="rotor4">
+        </div>
+        <div class="rotor5">
+        </div>
+        <div class="rotor6">
+        </div>
+        <div class="rotor7">
+        </div>
+        <div class="rotor8">
+        </div>
+        <div class="rotor9">
+        </div>
+        <div class="rotor10">
+        </div>
+        <div class="rotor11">
+        </div>
+        <div class="rotor12">
+        </div>
+
+
+
+
+
+
+        <div class="borderotor">
+            <div class="muesca">  
+            </div>
+            <div class="muesca2">  
+            </div>
+            <div class="rotorsticker">SR  
+            </div>
+        </div>
+        <div class="borderotor2">
+            <div class="muesca3">  
+            </div>
+            <div class="muesca4"> 
+            </div>
+            <div class="rotorsticker2">TR 
+            </div>
+        </div>
+
+    <div class="contenedor">
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+</div>
+
+
+
+        
+    <div class="contenedor2" >
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+    <div class="cubo">
+        <div class="cara cara-frontal"></div>
+        <div class="cara cara-trasera"></div>
+        <div class="cara cara-derecha"></div>
+        <div class="cara cara-izquierda"></div>
+        <div class="cara cara-superior"></div>
+        <div class="cara cara-inferior"></div>
+    </div>
+</div>
+
+        
+
+
+        <div class="refuerzo">
+        </div>
+        <div class="refuerzo" id="refuerzo2">
+        </div>
+        <div class="refuerzo" id="refuerzo3">
+        </div>
+        <div class="refuerzo" id="refuerzo4">
+        </div>
+
+        <div class="hole">
+        </div>
+        <div class="hole2" ></div>
+        <div class="hole" id="holeb">
+        </div>
+        <div class="hole2" id="hole2b"></div>
+        <div class="hole" id="holec">
+        </div>
+        <div class="hole2" id="hole2c"></div>
+        <div class="hole" id="holed">
+        </div>
+        <div class="hole2" id="hole2d"></div>
+
+
+        <div class="hole" id="holee">
+        </div>
+        <div class="hole2" id="hole2e"></div>
+        <div class="hole" id="holef">
+        </div>
+        <div class="hole2" id="hole2f"></div>
+        <div class="hole" id="holeg">
+        </div>
+        <div class="hole2" id="hole2g"></div>
+        <div class="hole" id="holeh">
+        </div>
+        <div class="hole2" id="hole2h"></div>
+
+        <div class="pestaña"></div>
+        <div class="pestaña" id="pes1"></div>
+        <div class="pestaña" id="pes2"></div>
+        <div class="pestaña" id="pes3"></div>
+
+        <div class="pestaña2"></div>
+        <div class="pestaña2" id="pes2b"></div>
+
+        <div class="pestaña3"></div>
+        <div class="pestaña3" id="pes3b"></div>
+        <div class="pestaña3" id="pes3c"></div>
+        <div class="pestaña3" id="pes3d"></div>
+
+        <div class="base"></div>
+        <div class="base" id="base2"></div>
+        <div class="base" id="base3"></div>
+        <div class="base" id="base4"></div>
+
+        <div class="baseb"></div>
+        <div class="baseb" id="base2b"></div>
+        <div class="baseb" id="base3b"></div>
+        <div class="baseb" id="base4b"></div>
+
+
+        <div class="soporte"></div>
+        <div class="soporte" id="soporteb"></div>
+        <div class="soporte2"></div>
+        <div class="soporte2"  id="soporte2b"></div>
+        <div class="soporte2"  id="soporte2c"></div>
+        <div class="soporte2"  id="soporte2d"></div>
+        <div class="soporte2"  id="soporte2e"></div>
+        <div class="soporte2"  id="soporte2f"></div>
+        <div class="soporte2"  id="soporte2g"></div>
+        <div class="soporte2"  id="soporte2h"></div>
+        <div class="soporte2"  id="soporte2i"></div>
+        <div class="soporte2"  id="soporte2j"></div>
+        <div class="soporte2"  id="soporte2k"></div>
+        <div class="soporte2"  id="soporte2l"></div>
+        <div class="soporte2"  id="soporte2m"></div>
+
+        <div class="soporte3"></div>
+        <div class="soporte3" id="soporte3b"></div>
+        
+        <div class="soporteTurn">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="soporteTurn" id="turnI">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="soporteTurn" id="turnIA">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="soporteTurn" id="turnDA">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="hlc"></div>
+        <div class="hlc" id="hlci"></div>
+        <div class="hlc" id="hlcd"></div>
+        <div class="hlc" id="hlcip"></div>
+        <div class="hlc" id="hlcdp"></div>
+
+        <div class="hlc" id="hlcb"></div>
+        <div class="hlc" id="hlcib"></div>
+        <div class="hlc" id="hlcdb"></div>
+        <div class="hlc" id="hlcipb"></div>
+        <div class="hlc" id="hlcdpb"></div>
+
+      <div class="ht" id="h1"></div>
+      <div class="ht" id="h2"></div>
+      <div class="ht" id="h3"></div>
+      <div class="ht" id="h4"></div>
+      <div class="ht" id="hcentral"></div>
+    
+      <div class="ht" id="h5">
+        <div class="star"></div>
+      </div>
+      <div class="ht" id="h6">
+        <div class="star"></div>
+      </div>
+      <div class="ht" id="h7">
+        <div class="star"></div>
+      </div>
+      <div class="ht" id="h8">
+        <div class="star"></div>
+      </div>
+
+      <div class="ht" id="h9central">
+        <div class="star"></div>
+      </div>
+
+      <div class="rb"></div>
+
+    
+
+      <div class="carcasa izquierda"></div>
+      <div class="borde" id="borde1"></div>
+      <div class="borde" id="borde2"></div>
+
+      <div class="borde2" id="b2a"></div>
+      <div class="borde2" id="b2b"></div>
+      <div class="borde2" id="b2c"></div>
+      <div class="borde2" id="b2d"></div>
+      <div class="borde2" id="b2e"></div>
+      <div class="borde2" id="b2f"></div>
+      <div class="borde2" id="b2g"></div>
+      <div class="borde2" id="b2h"></div>
+      
+      <div class="rb2" id="rb2a"></div>
+      <div class="rb2"  id="rb2b"></div> 
+      <div class="rb2" id="rb2ab"></div>
+      <div class="rb2"  id="rb2bb"></div> 
+      <div class="carcasa derecha"></div>
+
+
+
+      <div class="cpolea"></div>
+      <div class="cpolea" id="cpoleab"></div>
+      <div class="cpolea" id="cpoleac"></div>
+      <div class="cpolea" id="cpolead"></div>
+
+
+
+      <div class="cpolea2">
+        <div class="stickerpolea"></div>
+      </div>
+      <div class="cpolea2" id="cpolea2b">
+        <div class="stickerpolea2"></div>
+      </div>
+
+      <div class="cpolea3"></div>
+      <div class="cpolea3" id="cpolea3b"></div>
+      <div class="cpolea3" id="cpolea3c"></div>
+      <div class="cpolea3" id="cpolea3d"></div>
+
+
+
+      <div class="cylinder" id="cintas">
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+        <div class="face5"></div>
+      
+      
+        
+      </div>
+
+      
+      <div class="cylinder" id="cintas2">
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+        <div class="face6"></div>
+       
+        
+        
+      
+      
+        
+      </div>
+
+
+
+      <div class="cylinder" id="rotoreje">
+        <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+
+
+        
+      </div>
+
+      <div class="cylinder" id="rotoreje2">
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+            <div class="face4"></div>
+     
+        
+      </div>
+
+      <div class="cylinder" id="poleaeje">
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+      </div>
+
+   
+      <div class="cylinder" id="poleaeje2">
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+        <div class="face3"></div>
+      </div>
+
+
+
+      <div class="cylinder" id="polea">
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        
+      </div>
+
+      <div class="cylinder" id="polea2">
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        
+      </div>
+      
+      <div class="cylinder" id="polea3">
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        
+      </div>
+  
+      <div class="cylinder" id="polea4">
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        <div class="face2"></div>
+        
+      </div>
+  
+
+      <div class="cylinder" id="ccentral">
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        
+      </div>
+  
+
+      <div class="cylinder" id="c1">
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        
+      </div>
+
+      <div class="cylinder" id="c2">
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        
+      </div>
+      <div class="cylinder" id="c3">
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        
+      </div>
+      <div class="cylinder" id="c4">
+     
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+        <div class="face"></div>
+
+      </div>
+      
+      
+      
+    </div>
+  </div>
+
+  <script >
+    const cintaContainer = document.querySelector('.cinta-container');
+    const cinta = document.querySelector('.cinta');
+
+    // Función que se ejecuta cuando el cursor se mueve
+    cintaContainer.addEventListener('mousemove', (event) => {
+      // Obtenemos la posición del cursor dentro del contenedor
+      const rect = cintaContainer.getBoundingClientRect();
+      const x = event.clientX - rect.left; // Posición en el eje X
+      const y = event.clientY - rect.top;  // Posición en el eje Y
+
+      // Calculamos el porcentaje de la posición del cursor respecto al tamaño del contenedor
+      const percentX = (x / rect.width) - 0.5; // Normalizamos entre -0.5 y 0.5
+      const percentY = (y / rect.height) - 0.5; // Normalizamos entre -0.5 y 0.5
+
+      // Aplicamos una rotación en el contenedor .cinta basada en la posición del cursor
+      cinta.style.transform = `rotateX(${percentY * 120}deg) rotateY(${-percentX * 120}deg)`;
+    });
+
+    // Restablecer la rotación cuando el cursor sale del área
+    cintaContainer.addEventListener('mouseleave', () => {
+      cinta.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+//todo lo referente al audio
+
+
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressBar = document.getElementById('progressBar');
+    const volumeControl = document.getElementById('volumeControl');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const stopBtn = document.getElementById('stopBtn');
+
+    const goBtn = document.getElementById('goBtn');
+        // Obtener los íconos dentro del div
+    const iconPlay = playPauseBtn.querySelector('.icon-play');
+    const iconPause = playPauseBtn.querySelector('.icon-pause');
+    
+    const rotorSR = document.querySelector('.borderotor');
+    const rotorTR = document.querySelector('.borderotor2');
+    const rotorSRb = document.querySelector('.contenedor');
+    const rotorTRb = document.querySelector('.contenedor2');
+    const bobina11 = document.querySelector('.rotor11');
+    const bobina12 = document.querySelector('.rotor12');
+    const poleas = document.querySelector('.cpolea2');
+    const poleas2 = document.getElementById('cpolea2b');
+    const divBrillo = document.querySelector('.bobina');
+    const divBrillo2 = document.querySelector('.bobina2');
+    const divBrillo3 = document.querySelector('.bobina3');
+
+    const logoBtn = document.querySelector('.logo');
+    
+    
+        // Mostrar el icono de Play por defecto
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+    
+    // Lista de canciones
+    const playlist = [
+        {
+            title: '"Chemical Love"',
+            artist: "#1 Kevin & Cherry",
+            src: "assets/ChemicalLove.mp3"
+        },
+        {
+            title: '"Running in the 90s"',
+            artist: "#2 Max Coveri",
+            src: "assets/runninginthe90s.mp3"
+        },
+        {
+            title: '"No One Sleep in Tokyo"',
+            artist: "#3 Edo Boys",
+            src: "assets/noonesleepintokyo.flac"
+        },
+        {
+            title: '"Night of Fire"',
+            artist: "#4 Niko",
+            src: "assets/nightoffire.flac"
+        },
+        {
+            title: '"One Night in Arabia"',
+            artist: "#5 Go Go Girls",
+            src: "assets/onenightinarabia.flac"
+        },
+        {
+            title: '"Deja Vu"',
+            artist: "#6 Dave Rodgers",
+            src: "assets/dejavu.mp3"
+        },
+        {
+            title: '"Speed Lover"',
+            artist: "#7 Speedman",
+            src: "assets/speedlover.flac"
+        },
+        {
+            title: '"Crazy for Love"',
+            artist: "#8 Dusty",
+            src: "assets/crazyforlove.flac"
+        },
+        {
+            title: '"GAS GAS GAS"',
+            artist: "#9 Manuel",
+            src: "assets/gasgasgas.flac"
+        },
+        {
+            title: '"Adrenaline"',
+            artist: "#10 Ace",
+            src: "assets/Ace - Adrenaline.mp3"
+        },
+        {
+            title: '"The Top"',
+            artist: "#11 Ken Blast",
+            src: "assets/Ken Blast - The Top.mp3"
+        },
+        {
+            title: '"Space Boy"',
+            artist: "#12 Dave Rodgers",
+            src: "assets/spaceboy.mp3"
+        },
+        {
+            title: '"Be My Babe"',
+            artist: "#13 Jilly",
+            src: "assets/03. Jilly - Be My Babe.mp3"
+        },
+        {
+            title: '"Remember Me"',
+            artist: "#14 Leslie Parrish",
+            src: "assets/04. Leslie Parrish - Remember Me.mp3"
+        },
+        {
+            title: '"Don´t Stop the Music"',
+            artist: "#15 Lou Grant",
+            src: "assets/06. Lou Grant - Don't Stop the Music.mp3"
+        },
+        {
+            title: '"Heartbeat"',
+            artist: "#16 Nathalie",
+            src: "assets/10. Nathalie - Heartbeat.mp3"
+        },
+        {
+            title: '"Save Me"',
+            artist: "#17 Leslie Parrish",
+            src: "assets/13. Leslie Parrish - Save Me.mp3"
+        },
+        {
+            title: '"Don´t Stand So Close"',
+            artist: "#18 Dr Love",
+            src: "assets/07. Dr. Love - Don't Stand So Close.mp3"
+        },
+        {
+            title: '"Love & Money"',
+            artist: "#19 Za-Za",
+            src: "assets/06. Za-Za - Love & Money.mp3"
+        },
+        {
+            title: '"Killing My Love"',
+            artist: "#20 Leslie Parrish",
+            src: "assets/01. Leslie Parrish - Killing My Love.mp3"
+        },
+        {
+            title: '"Dancing"',
+            artist: "#21 Vicky Vale",
+            src: "assets/05. Vicky Vale - Dancing.mp3"
+        },
+        {
+            title: '"Lost into the Night"',
+            artist: "#22 Elisa",
+            src: "assets/12. Elisa - Lost into the Night.mp3"
+        },
+        {
+            title: '"Stay"',
+            artist: "#23 Victoria",
+            src: "assets/20. Victoria - Stay.mp3"
+        },
+        {
+            title: '"Boom Boom Japan"',
+            artist: "#24 Dave Rodgers",
+            src: "assets/04. Dave Rodgers - Boom Boom Japan.mp3"
+        },
+        {
+            title: '"Black Out"',
+            artist: "#25 Overload",
+            src: "assets/05. Overload - Black Out.mp3"
+        },
+        {
+            title: '"Beat of the Rising Sun"',
+            artist: "#26 Dave Rodgers",
+            src: "assets/07. Dave Rodgers - Beat of the Rising Sun.mp3"
+        },
+        {
+            title: '"Gimme The Night"',
+            artist: "#27 Dave McLoud",
+            src: "assets/Dave McLoud - Gimme The Night.mp3"
+        },
+        {
+            title: '"Forever Young"',
+            artist: "#28 Symbol",
+            src: "assets/Symbol - Forever Young.mp3"
+        },
+        {
+            title: '"I Wanna Be The Night"',
+            artist: "#29 Chris T.",
+            src: "assets/Chris T. - I Wanna Be The Night.mp3"
+        },
+        {
+            title: '"Rider Of THe Sky"',
+            artist: "#30 Ace",
+            src: "assets/Ace - Rider Of The Sky.mp3"
+        },
+        {
+            title: '"Golden Age"',
+            artist: "#31 Max Coveri",
+            src: "assets/Max Coveri - Golden Age.mp3"
+        },
+        {
+            title: '"You´re Gonna Be"',
+            artist: "#32 Starlet",
+            src: "assets/Starlet - You're Gonna Be.mp3"
+        },
+        {
+            title: '"Emotional Fire"',
+            artist: "#33 Denise",
+            src: "assets/Denise - Emotional Fire (Extended Mix).mp3"
+        },
+        {
+            title: '"Express Love"',
+            artist: "#34 Mega NRG Man",
+            src: "assets/Mega NRG Man - Express Love.mp3"
+        },
+        {
+            title: '"Power"',
+            artist: "#35 Go 2",
+            src: "assets/Go 2 - Power.mp3"
+        },
+        {
+            title: '"Futureland"',
+            artist: "#36 Ace",
+            src: "assets/Ace - Futureland.mp3"
+        },
+        {
+            title: '"Looka Bomba"',
+            artist: "#37 Go 2",
+            src: "assets/Go 2 - Looka Bomba.mp3"
+        },
+        {
+            title: '"Rockin` Hardcore"',
+            artist: "#38 Fastway",
+            src: "assets/Fastway - Rockin' Hardcore.mp3"
+        },
+        {
+            title: '"Midnight Love"',
+            artist: "#39 Neo",
+            src: "assets/Neo - Midnight Love.mp3"
+        },
+        {
+            title: '"Mad Desire"',
+            artist: "#40 Stephy Martini",
+            src: "assets/Stephy Martini - Mad Desire (Extended Mix).mp3"
+        },
+        {
+            title: '"Disconnected"',
+            artist: "#41 Hotblade",
+            src: "assets/Hotblade - Disconnected.mp3"
+        },
+        {
+            title: '"When The Sun Goes Down"',
+            artist: "#42 Ken Blast",
+            src: "assets/Ken Blast - When The Sun Goes Down.mp3"
+        },
+    ];
+   
+    
+    
+    let currentTrack = 0;
+    
+    // Cargar la primera canción al inicio
+    audio.src = playlist[currentTrack].src;
+    
+
+
+    let controlContent = true;
+    let controlContent2 = true;
+
+    // Actualizar el título y el autor al cargar la canción
+    function updateTrackInfo() {
+        if(controlContent == true) {
+        document.getElementById('trackTitle').textContent = "MusicPlayer";
+        document.getElementById('trackArtist').textContent = "   HANGAR93";
+        controlContent = false;
+        }
+        else{
+            document.getElementById('trackTitle').textContent = playlist[currentTrack].title;
+            document.getElementById('trackArtist').textContent = playlist[currentTrack].artist;  
+        }
+       
+    }
+    
+    // Inicializar la información de la pista
+    updateTrackInfo();
+    
+  
+    
+// Función para activar y desactivar los efectos
+function activarEfectos() {
+    iconPlay.style.display = 'none';
+    iconPause.style.display = 'block';
+ 
+    divBrillo.classList.add('activo');
+    divBrillo2.classList.add('activo');
+    divBrillo3.classList.add('activo');
+}
+
+function activarEfectosR() {
+    iconPlay.style.display = 'none';
+    iconPause.style.display = 'block';
+    rotorSR.classList.add('gogogor');
+    rotorTR.classList.add('gogogor');
+    rotorSRb.classList.add('gogogo2r');
+    rotorTRb.classList.add('gogogo2r');
+    bobina11.classList.add('gogogor');
+    bobina12.classList.add('gogogor');
+    poleas.classList.add('gogogor');
+    poleas2.classList.add('gogogor');
+    divBrillo.classList.add('activor');
+    divBrillo2.classList.add('activor');
+    divBrillo3.classList.add('activor');
+}
+
+function activarEfectosN() {
+    iconPlay.style.display = 'none';
+    iconPause.style.display = 'block';
+    rotorSR.classList.add('gogogon');
+    rotorTR.classList.add('gogogon');
+    rotorSRb.classList.add('gogogo2n');
+    rotorTRb.classList.add('gogogo2n');
+    bobina11.classList.add('gogogon');
+    bobina12.classList.add('gogogon');
+    poleas.classList.add('gogogon');
+    poleas2.classList.add('gogogon');
+    divBrillo.classList.add('activon');
+    divBrillo2.classList.add('activon');
+    divBrillo3.classList.add('activon');
+}
+
+
+function desactivarEfectos() {
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  
+    divBrillo.classList.remove('activo');
+    divBrillo2.classList.remove('activo');
+    divBrillo3.classList.remove('activo');
+}
+
+function desactivarEfectosR() {
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+    rotorSR.classList.remove('gogogor');
+    rotorTR.classList.remove('gogogor');
+    rotorSRb.classList.remove('gogogo2r');
+    rotorTRb.classList.remove('gogogo2r');
+    bobina11.classList.remove('gogogor');
+    bobina12.classList.remove('gogogor');
+    poleas.classList.remove('gogogor');
+    poleas2.classList.remove('gogogor');
+    divBrillo.classList.remove('activor');
+    divBrillo2.classList.remove('activor');
+    divBrillo3.classList.remove('activor');
+}
+
+function desactivarEfectosN() {
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+    rotorSR.classList.remove('gogogon');
+    rotorTR.classList.remove('gogogon');
+    rotorSRb.classList.remove('gogogo2n');
+    rotorTRb.classList.remove('gogogo2n');
+    bobina11.classList.remove('gogogon');
+    bobina12.classList.remove('gogogon');
+    poleas.classList.remove('gogogon');
+    poleas2.classList.remove('gogogon');
+    divBrillo.classList.remove('activon');
+    divBrillo2.classList.remove('activon');
+    divBrillo3.classList.remove('activon');
+}
+
+// Variable de control para saber si el cambio de canción fue manual
+let isSkipping = true;
+let glitchInterval;
+let glitchEn =  false;
+glitching();
+
+
+// Variables de control para los botones
+const allButtons = [stopBtn, nextBtn, prevBtn, playPauseBtn];
+
+// Desactivar botones durante el rebobinado
+function disableButtons() {
+    allButtons.forEach(button => button.disabled = true);
+}
+
+// Activar botones después del rebobinado
+function enableButtons() {
+    allButtons.forEach(button => button.disabled = false);
+}
+
+
+goBtn.addEventListener('click', () => {
+    isCounting = true;
+    startTimer(); // Inicia el contador
+    glitchEn =  true;
+    glitching();
+    document.querySelector('.main').style.display = 'none';
+    document.querySelector('ul').style.display = 'none';
+    document.querySelector('.lines').style.display = 'none';
+  
+    if(controlContent2 == true){
+        
+        document.getElementById('trackTitle').textContent = "Enjoy the ride!";
+        document.getElementById('trackArtist').textContent = "Ty for listening";
+        controlContent2 = false;
+    }
+    else{
+        document.getElementById('trackArtist').textContent = "Are you..";
+        document.getElementById('trackTitle').textContent = "      ..Ready?";
+    }
+
+});
+
+logoBtn.addEventListener('click', () => {
+    isCounting = false;
+    stopTimer(); // Detiene el contador
+    pause();
+    glitchEn =  false;
+    glitching();
+    document.querySelector('.lines').style.display = 'block';
+    document.querySelector('.main').style.display = 'block';
+    document.querySelector('ul').style.display = 'block';
+    document.getElementById('trackTitle').textContent = "              ..zzzzzZzz..";
+    document.getElementById('trackArtist').textContent = "paused..";
+
+
+
+       // Pausar la canción 
+       audio.pause();
+       
+   
+       // Desactivar cualquier animación o efecto visual
+       desactivarEfectos();
+       desactivarEfectosN();
+       desactivarEfectosR();
+   
+   
+    
+   
+   
+       // Mostrar el icono de Play y ocultar el de Pause
+       iconPlay.style.display = 'block';
+       iconPause.style.display = 'none';
+   
+       // Detener el contador de tiempo
+       totalSeconds = 0;
+       document.getElementById("seconds").innerHTML = pad(0);
+       document.getElementById("minutes").innerHTML = pad(0);
+   
+       // Detener el intervalo de glitch
+       
+       enableButtons();
+});
+
+
+// Evento para el botón stop
+stopBtn.addEventListener('click', () => {
+    resetToDefault();
+    playRewindSound2()
+    initializeDistortion(); // Resetea la distorsión y el slider al iniciar una canción
+   
+    document.getElementById('trackTitle').textContent = "";
+    document.getElementById('trackArtist').textContent = "";
+
+       // Pausar la canción y reiniciarla desde el principio
+       audio.pause();
+       audio.currentTime = 0;
+   
+       // Desactivar cualquier animación o efecto visual
+       desactivarEfectos();
+       desactivarEfectosN();
+       desactivarEfectosR();
+   
+   
+   
+ 
+   
+       // Mostrar el icono de Play y ocultar el de Pause
+       iconPlay.style.display = 'block';
+       iconPause.style.display = 'none';
+   
+       // Detener el contador de tiempo
+       totalSeconds = 0;
+       document.getElementById("seconds").innerHTML = pad(0);
+       document.getElementById("minutes").innerHTML = pad(0);
+   
+       // Detener el intervalo de glitch
+      
+       enableButtons();
+});
+
+
+
+// Evento para el botón Play/Pause
+playPauseBtn.addEventListener('click', () => {
+   
+    playRewindSound2()
+    updateTrackInfo();
+    if (audio.paused) {
+        audio.play();
+        activarEfectos();  // Activar los efectos
+        play();
+      
+
+    } else {
+        audio.pause();
+        desactivarEfectos();  // Desactivar los efectos
+        pause();
+    }
+});
+
+// Actualizar la barra de progreso
+audio.addEventListener('timeupdate', () => {
+    const progress = (audio.currentTime / audio.duration) * 100;
+    progressBar.value = progress;
+});
+
+// Controlar el progreso manualmente
+progressBar.addEventListener('input', (e) => {
+    const time = (e.target.value / 100) * audio.duration;
+    audio.currentTime = time;
+});
+
+// Inicializar el valor de la barra de volumen al cargar la página
+volumeControl.value = audio.volume;  // Asegura que el valor de la barra esté sincronizado con el volumen del audio
+
+// Función para aplicar una curva exponencial
+function applyExponentialCurve(value, min, max, factor) {
+    // Normaliza el valor en el rango [0, 1]
+    let normalized = (value - min) / (max - min);
+    
+    // Aplica la curva exponencial
+    let exponentialValue = Math.pow(normalized, factor);
+    
+    // Convierte de nuevo a un rango entre min y max
+    return (exponentialValue * (max - min)) + min;
+}
+
+
+volumeControl.addEventListener('input', (e) => {
+    // Aplicamos una curva exponencial al volumen
+    let exponentialVolume = applyExponentialCurve(e.target.value, 0, 1, 3);  // Factor 3 para que el cambio sea más gradual
+    
+    audio.volume = exponentialVolume;  // Ajusta el volumen del audio
+});
+
+let isAutoEnding = false;
+
+// Cambiar a la siguiente canción
+nextBtn.addEventListener('click', () => {
+    if (!isAutoEnding) {
+        playRewindSound2(); 
+        playRewindSound();// Solo reproducir sonido al hacer clic manual
+    }
+    play();
+    initializeDistortion(); // Resetea la distorsión y el slider al iniciar una canción
+    resetToDefault();
+   
+    if (isAutoEnding) {
+        play();
+        currentTrack = (currentTrack + 1) % playlist.length;
+        audio.src = playlist[currentTrack].src;
+        updateTrackInfo(); // Actualizar la información de la pista
+        audio.play();
+        iconPlay.style.display = 'none';
+        iconPause.style.display = 'block';
+      
+    } else {
+        
+        document.querySelector('.xdd').style.display = 'block';
+        document.getElementById('xdd2').style.display = 'block';
+        document.getElementById('trackTitle').style.display = 'none'; 
+        document.getElementById('trackArtist').style.display = 'none'; 
+        audio.pause();
+       
+       
+        activarEfectosN();
+
+        setTimeout(() => {
+            rewindSound.pause();
+            rewindSound.currentTime = 0; // Reiniciar el sonido al principio
+            desactivarEfectosN();
+        }, 1000);
+
+        setTimeout(() => {
+            document.querySelector('.xdd').style.display = 'none';
+            document.getElementById('xdd2').style.display = 'none';
+            document.getElementById('trackTitle').style.display = 'block'; // Mostrar el título
+            document.getElementById('trackArtist').style.display = 'block'; // Mostrar el artista
+            currentTrack = (currentTrack + 1) % playlist.length;
+            audio.src = playlist[currentTrack].src;
+            updateTrackInfo(); // Actualizar la información de la pista
+            audio.play();
+            iconPlay.style.display = 'none';
+            iconPause.style.display = 'block';
+
+            enableButtons();
+        }, 1000);
+        rebobinar();
+    }
+});
+
+// Cambiar a la canción anterior
+prevBtn.addEventListener('click', () => {
+    initializeDistortion(); // Resetea la distorsión y el slider al iniciar una canción
+    resetToDefault();
+
+ 
+     if (!isSkipping) {
+       
+        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+        audio.src = playlist[currentTrack].src;
+        updateTrackInfo(); // Actualizar la información de la pista
+        audio.play();
+        iconPlay.style.display = 'none';
+        iconPause.style.display = 'block';
+        isSkipping = true;
+    }
+    else{
+        isSkipping = true;
+        document.querySelector('.xdd').style.display = 'block';
+        document.getElementById('xdd2').style.display = 'block';
+        document.getElementById('trackTitle').style.display = 'none'; 
+        document.getElementById('trackArtist').style.display = 'none'; 
+        audio.pause();
+        playRewindSound2();
+        activarEfectosR();
+
+        playRewindSound();
+
+        setTimeout(() => {
+            rewindSound.pause();
+            rewindSound.currentTime = 0; // Reiniciar el sonido al principio
+            desactivarEfectosR();
+        }, 1000);
+
+        setTimeout(() => {
+            document.querySelector('.xdd').style.display = 'none';
+            document.getElementById('xdd2').style.display = 'none';
+            document.getElementById('trackTitle').style.display = 'block'; // Mostrar el título
+            document.getElementById('trackArtist').style.display = 'block'; // Mostrar el artista
+            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+            audio.src = playlist[currentTrack].src;
+            updateTrackInfo(); // Actualizar la información de la pista
+            audio.play();
+            iconPlay.style.display = 'none';
+            iconPause.style.display = 'block';
+           
+            enableButtons();
+        }, 1000);
+
+
+    }
+    rebobinar();
+   
+});
+// Reproducir la siguiente canción automáticamente cuando termina
+audio.addEventListener('ended', () => {
+    isAutoEnding = true; // Indicar que el cambio de canción es automático
+    nextBtn.click(); // Simular clic en el botón "Siguiente"
+    isAutoEnding = false; // Reiniciar el estado después del cambio
+});
+
+// Crear el objeto de audio para el sonido de rebobinado
+const rewindSound = new Audio('/assets/rewind.mp3');
+const rewindSound2 = new Audio('assets/closing-tape-cassette-172756.mp3');
+
+// Reproducir el sonido cuando se hace un rebobinado
+function playRewindSound() {
+    rewindSound.play();
+    disableButtons(); // Desactivar botones al iniciar el rebobinado
+}
+
+// Reproducir el sonido button
+function playRewindSound2() {
+    rewindSound2.play();
+
+}
+
+function glitching() {
+    if (glitchEn) {
+        // Si el glitch está habilitado, inicia el intervalo para el glitch
+        glitchInterval = setInterval(() => {
+            const glitch = document.querySelector('.logo');
+
+            glitch.classList.add('logo-glitch');
+
+            // Desactivar el glitch después de 1 segundo (duración de la animación)
+            setTimeout(() => {
+                glitch.classList.remove('logo-glitch');
+            }, 1000);  // Duración de la animación en milisegundos
+        }, 10000);  // Ejecutar cada 10 segundos
+    } else {
+        // Si el glitch está deshabilitado, quitar la clase y limpiar el intervalo
+        clearInterval(glitchInterval);
+        const glitch = document.querySelector('.logo');
+        glitch.classList.remove('logo-glitch');
+    }
+}
+
+//VHS
+
+function getVHSDate() {
+    const now = new Date();
+    
+    // Extraemos el mes, día y año
+    const month = now.toLocaleString('en-US', { month: 'short' }); // Obtiene el mes abreviado
+    const day = String(now.getDate()).padStart(2, '0'); // Asegura que el día tenga 2 dígitos
+    const year = now.getFullYear(); // Obtiene el año
+
+    // Formateamos la fecha en el formato "Mes. Día Año"
+    const vhsDate = `${month}. ${day} ${year}`;
+
+    // Insertamos la fecha en el div
+    document.getElementById('vhs-date').textContent = vhsDate;
+  }
+
+  // Llamamos la función para mostrar la fecha
+  getVHSDate();
+
+
+
+    // Función para obtener la hora en formato "AM/PM 00:00"
+    function getVHSTime() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        const period = hours >= 12 ? 'PM' : 'AM';
+  
+        // Convertimos el formato de 24 horas a 12 horas
+        hours = hours % 12 || 12; // Si es 0, lo cambiamos a 12 (12 AM)
+        minutes = String(minutes).padStart(2, '0'); // Aseguramos que los minutos tengan 2 dígitos
+  
+        const vhsTime = `${period} ${hours}:${minutes}`; // Formato "AM/PM 00:00"
+        document.getElementById('vhs-time').textContent = vhsTime; // Actualiza el div con la hora
+      }
+
+      getVHSTime();
+      setInterval(getVHSTime, 30000);
+
+
+
+
+
+
+
+
+        // Variables del contador
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
+    
+    
+        let isCounting = false; // Variable de control que determina si el contador sigue corriendo
+
+        // Mostrar el tiempo en el formato "00:00:00"
+        function updateCounter() {
+          document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+          document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+          document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Función para iniciar o actualizar el contador
+        function startCounting() {
+          if (isCounting) { // Si isCounting es true, el contador sigue
+            seconds++;
+            if (seconds >= 60) {
+              seconds = 0;
+              minutes++;
+              if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+              }
+            }
+            updateCounter();
+          }
+        }
+   
+       
+// Inicia el contador automáticamente cuando la página carga
+let intervalId;
+function startTimer() {
+  if (!intervalId) {
+    intervalId = setInterval(startCounting, 1000); // Ejecuta la función cada 1000 ms (1 segundo)
+  }
+}
+
+// Detener el contador
+function stopTimer() {
+  clearInterval(intervalId); // Detiene el intervalo
+  intervalId = null;
+}
+
+
+
+
+// Más funciones audio
+
+const bassControl = document.getElementById("bassControl");
+const trebleControl = document.getElementById("trebleControl");
+
+// Configurar Web Audio API
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const track = audioContext.createMediaElementSource(audio);
+
+// Crear filtros para graves y agudos
+const bassFilter = audioContext.createBiquadFilter();
+bassFilter.type = "lowshelf"; // Tipo de filtro para graves
+bassFilter.frequency.value = 200; // Frecuencia base para graves
+
+const trebleFilter = audioContext.createBiquadFilter();
+trebleFilter.type = "highshelf"; // Tipo de filtro para agudos
+trebleFilter.frequency.value = 3000; // Frecuencia base para agudos
+
+// Conectar filtros al contexto de audio
+track.connect(bassFilter).connect(trebleFilter).connect(audioContext.destination);
+
+// Función para aplicar una curva exponencial más pronunciada
+function applyExponentialCurve(value, min, max, factor) {
+    // Asegura que el valor esté entre 0 y 1
+    let normalized = (value - min) / (max - min);
+    
+    // Aplicar la curva exponencial
+    let exponentialValue = Math.pow(normalized, factor);
+    
+    // Convierte de nuevo a un rango entre min y max
+    return (exponentialValue * (max - min)) + min;
+}
+
+// Ajuste gradual de los filtros (bass y treble) con curva exponencial
+bassControl.addEventListener("input", (e) => {
+    // Aplicar una curva exponencial mucho más pronunciada a la ganancia de graves
+    let gainValue = applyExponentialCurve(e.target.value, -30, 30, 1.5); // Factor 1.5 para mayor diferencia
+
+    bassFilter.gain.value = gainValue; // Aplicar la ganancia al filtro de graves
+});
+
+trebleControl.addEventListener("input", (e) => {
+    // Aplicar una curva exponencial más suave a la ganancia de agudos
+    let gainValue2 = applyExponentialCurve(e.target.value, -30, 30, 1.5); // Factor de 1.5 para un cambio más intenso
+
+    trebleFilter.gain.value = gainValue2; // Ajustar ganancia de agudos
+});
+
+// Iniciar el contexto de audio al reproducir
+audio.addEventListener("play", () => {
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+});
+
+// Crear el nodo de paneo estéreo y conectar
+const stereoPanner = audioContext.createStereoPanner();
+track.connect(stereoPanner).connect(audioContext.destination);
+
+// Ajuste del balance estéreo más sensible
+const balanceControl = document.getElementById("balanceControl");
+balanceControl.addEventListener("input", (e) => {
+    // Aumentar la sensibilidad del balance estéreo
+    let exaggeratedPanValue = applyExponentialCurve(e.target.value, -1.5, 1.5, 3); 
+    
+    stereoPanner.pan.value = exaggeratedPanValue; 
+});
+
+// Sincronizar los valores de los controles con los valores actuales de Web Audio API
+window.addEventListener("load", () => {
+    // Sincronizamos los controles con los valores actuales de los filtros y el paneo
+    bassControl.value = bassFilter.gain.value; // Actualiza el control de graves
+    trebleControl.value = trebleFilter.gain.value; // Actualiza el control de agudos
+    balanceControl.value = stereoPanner.pan.value; // Actualiza el control de balance estéreo
+});
+
+// Opcional: actualizar en tiempo real mientras se mueve el control
+bassControl.value = bassFilter.gain.value;
+trebleControl.value = trebleFilter.gain.value;
+balanceControl.value = stereoPanner.pan.value;
+
+
+
+
+
+const distortionControl = document.getElementById('distortion-control');
+
+// Crear el nodo de distorsión (WaveShaperNode)
+const distortion = audioContext.createWaveShaper();
+
+// Crear un nodo de ganancia para controlar el volumen
+const gainNode = audioContext.createGain();
+
+// Crear la fuente de audio
+const audioSource = audioContext.createMediaElementSource(audio);
+
+// Conectar la fuente de audio a la distorsión
+audioSource.connect(distortion);
+distortion.connect(gainNode);
+gainNode.connect(audioContext.destination);
+
+// Función para crear la curva de distorsión
+function makeDistortionCurve(amount) {
+    const curve = new Float32Array(44100); // 44.1 kHz
+    for (let i = 0; i < 44100; i++) {
+        const x = i * 2 / 44100 - 1;
+        curve[i] = Math.pow(Math.abs(x), amount) * Math.sign(x); // Genera una forma distorsionada
+    }
+    return curve;
+}
+
+// Función que actualiza la distorsión en tiempo real según el valor del slider (invertido)
+function updateDistortion(value) {
+    const invertedValue = (100 - value) / 100; // Invertir el valor del slider
+    distortion.curve = makeDistortionCurve(invertedValue); // Aplica la curva de distorsión
+}
+
+// Evento para actualizar la distorsión al mover el slider
+distortionControl.addEventListener('input', (event) => {
+    const distortionValue = event.target.value;
+    updateDistortion(distortionValue); // Aplica la distorsión según el valor invertido
+});
+
+// Función que asegura que el slider esté completamente a la izquierda (sin distorsión)
+function initializeDistortion() {
+    distortionControl.value = 0; // Coloca el slider al mínimo (izquierda)
+    updateDistortion(0); // Aplica distorsión nula (sin distorsión)
+}
+
+
+// Llamar a la función de inicialización al cargar la página
+initializeDistortion();
+
+
+
+// Obtener el control del pitch (slider)
+const pitchControl = document.getElementById('pitch-control');
+
+// Obtener los elementos específicos que deben rotar
+const elements = [
+    rotorSR,
+    rotorTR,
+    rotorSRb,
+    rotorTRb,
+    poleas,
+    poleas2
+];
+
+// Variable común para controlar la velocidad
+let speedControl = 50;  // Valor inicial de 50, que es el valor medio (predeterminado)
+let rotationAngle = 0;  // Ángulo de rotación acumulado
+let rotationSpeed = (speedControl / 50) * 10;  // Velocidad de rotación
+let rotationRequestId = null;  // ID de requestAnimationFrame
+let lastTime = 0;  // Tiempo de la última actualización
+
+// Conectar la fuente de audio al nodo de ganancia
+audioSource.connect(gainNode);
+gainNode.connect(audioContext.destination);
+
+// Función para actualizar la velocidad de rotación y el playbackRate del audio
+function updateSpeedControl(value) {
+    // Actualizamos la variable común `speedControl`
+    speedControl = value;
+
+    // Actualizamos el playbackRate del audio
+    audio.playbackRate = speedControl / 50; // La escala de 0-100 para el slider se traduce en playbackRate
+
+    // Actualizamos la velocidad de rotación
+    rotationSpeed = (speedControl / 50) * 10;  // Ajusta la velocidad de rotación en función de `speedControl`
+}
+
+// Función para actualizar la rotación
+function updateRotation() {
+    const currentTime = Date.now();
+    const deltaTime = (currentTime - lastTime) / 1000;  // Tiempo transcurrido en segundos
+    lastTime = currentTime;
+
+    rotationAngle += rotationSpeed * deltaTime * 60;  // Ajustamos la rotación por el tiempo transcurrido
+    // Aplicamos la rotación a cada uno de los elementos
+    elements.forEach((element) => {
+        if (element === rotorSRb || element === rotorTRb) {
+            // Si el elemento es rotorSRb o rotorTRb, aplicamos un translateZ(-10px)
+            element.style.transform = `rotate(${rotationAngle}deg) translateZ(-10px)`;
+        } else {
+            // Si no es rotorSR ni rotorTR, solo aplicamos la rotación
+            element.style.transform = `rotate(${rotationAngle}deg)`;
+        }
+    });
+    
+// Ajustar la duración de las animaciones de las bobinas
+const styles = document.styleSheets[0]; // Acceder al primer stylesheet
+for (let i = 0; i < styles.cssRules.length; i++) {
+    const rule = styles.cssRules[i];
+    const playbackRate = audio.playbackRate;
+
+    // Si playbackRate es 0, detener la animación
+    if (playbackRate === 0) {
+        if (rule.selectorText && rule.selectorText.includes('.bobina.activo::after')) {
+            rule.style.animationDuration = `0s`; // Detener animación
+        }
+        if (rule.selectorText && rule.selectorText.includes('.bobina2.activo::after')) {
+            rule.style.animationDuration = `0s`; // Detener animación
+        }
+        if (rule.selectorText && rule.selectorText.includes('.bobina3.activo::after')) {
+            rule.style.animationDuration = `0s`; // Detener animación
+        }
+    } else {
+        // Ajustar la duración en función del playbackRate
+        if (rule.selectorText && rule.selectorText.includes('.bobina.activo::after')) {
+            rule.style.animationDuration = `${(1 / playbackRate) * 0.5}s`; // Duplicar la velocidad (reduce la duración a la mitad)
+        }
+        if (rule.selectorText && rule.selectorText.includes('.bobina2.activo::after')) {
+            rule.style.animationDuration = `${(1 / playbackRate) * 0.5}s`; // Duplicar la velocidad (reduce la duración a la mitad)
+        }
+        if (rule.selectorText && rule.selectorText.includes('.bobina3.activo::after')) {
+            rule.style.animationDuration = `${(1 / playbackRate) * 0.5}s`; // Duplicar la velocidad (reduce la duración a la mitad)
+        }
+    }
+}
+
+    // Solicitar el siguiente fotograma
+    rotationRequestId = requestAnimationFrame(updateRotation);
+}
+
+// Función para comenzar la rotación
+function startRotation() {
+    if (!rotationRequestId) {
+        lastTime = Date.now();  // Guardamos el tiempo actual al iniciar la rotación
+        rotationRequestId = requestAnimationFrame(updateRotation);  // Comienza la animación
+    }
+}
+
+// Función para detener la rotación
+function stopRotation() {
+    if (rotationRequestId) {
+        cancelAnimationFrame(rotationRequestId);  // Detenemos la rotación
+        rotationRequestId = null;  // Limpiamos el ID del requestAnimationFrame
+        
+    }
+}
+
+// Evento para controlar el slider (pitch control)
+pitchControl.addEventListener('input', (event) => {
+    const pitchValue = event.target.value;
+    updateSpeedControl(pitchValue); // Llama a la función para aplicar el valor del slider
+
+    rotorSRb.style.transform = `rotate(${rotationAngle}deg) translateZ(-10px)`;
+    rotorTRb.style.transform = `rotate(${rotationAngle}deg) translateZ(-10px)`;
+
+});
+
+// Función para restablecer el control deslizante, playbackRate y animación al valor predeterminado
+function resetToDefault() {
+    const defaultPlaybackRate = 1; // Valor predeterminado para playbackRate (cuando el slider está a 50)
+    const defaultSliderValue = 50; // Valor predeterminado del slider (coincide con playbackRate = 1)
+
+    // Restablecemos la variable común `speedControl`
+    speedControl = defaultSliderValue;
+
+    // Restablecemos la velocidad de rotación y playbackRate
+    audio.playbackRate = defaultPlaybackRate;
+    pitchControl.value = defaultSliderValue;
+    rotationSpeed = (speedControl / 50) * 10;
+    // Detenemos la rotación
+    stopRotation();
+    
+    rotationAngle = 0;  // Restablecer el ángulo de rotación
+
+    // Restablecemos la rotación de los elementos
+    elements.forEach((element) => {
+        element.style.transform = `rotate(${rotationAngle}deg)`;
+    });
+
+    rotorSRb.style.transform = `rotate(${rotationAngle}deg) translateZ(-10px)`;
+    rotorTRb.style.transform = `rotate(${rotationAngle}deg) translateZ(-10px)`;
+
+
+    // Restablecer la duración de las animaciones de las bobinas
+    const styles = document.styleSheets[0]; // Acceder al primer stylesheet
+    for (let i = 0; i < styles.cssRules.length; i++) {
+        const rule = styles.cssRules[i];
+
+        // Restablecer la duración de las animaciones para los pseudoelementos ::after de las clases .bobina, .bobina2 y .bobina3
+        if (rule.selectorText && rule.selectorText.includes('.bobina.activo::after')) {
+            rule.style.animationDuration = `1s`; // Duración predeterminada
+        }
+        if (rule.selectorText && rule.selectorText.includes('.bobina2.activo::after')) {
+            rule.style.animationDuration = `1s`; // Duración predeterminada
+        }
+        if (rule.selectorText && rule.selectorText.includes('.bobina3.activo::after')) {
+            rule.style.animationDuration = `1s`; // Duración predeterminada
+        }
+    }
+}
+
+// Llamar a resetToDefault() para establecer los valores predeterminados al iniciar
+resetToDefault();
+
+// Función para rebobinar la animación, resetear y detenerla
+function rebobinar() {
+    // Restablecer los valores al inicio
+    resetToDefault();
+
+    // Reiniciar la animación, velocidad y slider
+    startRotation();
+}
+
+// Modificación en las funciones de play y pause
+let savedState = null;  // Variable para almacenar el estado guardado
+
+function play() {
+    if (!rotationRequestId) {
+        startRotation();  // Iniciar o reanudar la rotación
+    }
+}
+
+function pause() {
+    if (rotationRequestId) {
+        stopRotation();  // Detener la rotación
+    }
+}
+
+// Aseguramos translateZ(-10px) al cargar la página
+window.addEventListener('load', () => {
+    rotorSRb.style.transform = `translateZ(-10px)`;
+    rotorTRb.style.transform = `translateZ(-10px)`;
+});
+
+
+
+
+
+
+
+const mainGainNode = gainNode;
+
+// Crear un nodo de delay
+const delayNode = audioContext.createDelay();
+delayNode.delayTime.value = 0.4;
+
+// Crear un nodo de feedback (retroalimentación)
+const feedbackGain = audioContext.createGain();
+feedbackGain.gain.value = 0.5;
+
+// Conectar el feedback: delay -> feedback -> delay
+delayNode.connect(feedbackGain);
+feedbackGain.connect(delayNode); // Retroalimentación
+
+// Crear un nodo de ganancia para el eco (opcional, ajustar volumen del eco)
+const echoGainNode = audioContext.createGain();
+echoGainNode.gain.value = 0.55;
+
+// Conectar la cadena de procesamiento del audio
+mainGainNode.connect(audioContext.destination); // Mantener siempre la conexión principal
+
+// Variable para controlar el estado del delay
+let isDelayActive = false;
+
+// Función para activar o desactivar el delay
+function toggleDelay() {
+    if (isDelayActive) {
+        // Desactivar el delay
+        mainGainNode.disconnect();
+        mainGainNode.connect(audioContext.destination); // Desconectar el delay
+        delayBtn.style.color = "rgb(168, 168, 168)"; // Cambiar color del texto a gris
+        isDelayActive = false;
+    } else {
+        // Activar el delay
+        mainGainNode.disconnect();
+        mainGainNode.connect(delayNode).connect(echoGainNode).connect(audioContext.destination); // Conectar delay y feedback
+        delayBtn.style.color = "rgb(223, 35, 35)"; // Cambiar color del texto a rojo
+        isDelayActive = true;
+    }
+}
+
+// Conectar el evento del botón
+delayBtn.addEventListener("click", toggleDelay);
+
+// Pausar el eco junto con la música
+audio.addEventListener("pause", () => {
+    if (isDelayActive) {
+        delayNode.disconnect(); // Desconectar el delay
+    }
+});
+
+// Reanudar el eco al reproducir
+audio.addEventListener("play", () => {
+    if (audioContext.state === "suspended") {
+        audioContext.resume(); // Asegurarse de que el contexto de audio esté activo
+    }
+
+    if (isDelayActive) {
+        mainGainNode.disconnect(); // Desconectar temporalmente
+        mainGainNode.connect(delayNode).connect(echoGainNode).connect(audioContext.destination); // Reconectar delay y echo
+    }
+});
+
+function toggleContainer() {
+    var container = document.getElementById("aboutCont");
+    container.scrollTop = 0;
+    container.style.display = (container.style.display === "none" || container.style.display === "") ? "block" : "none";
+  }
+
+
+
+
+
+
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=";
+  let interval = null;
+  const hostnameElement = document.getElementById("hostname");
+
+  let iteration = 0;
+  
+  // Obtenemos el hostname
+  let hostname = window.location.hostname;
+
+  // Función para mostrar "LOADING..." con puntos de manera secuencial
+  function showLoading() {
+    let dotCount = 0;
+    let loadingText = "LOADING";
+    let dotsInterval = setInterval(() => {
+      dotCount = (dotCount % 3) + 1;  // Alternar entre ".", "..", "..."
+      hostnameElement.innerText = loadingText + ".".repeat(dotCount);
+    }, 500); // Agregar un punto cada 500ms
+
+    // Detener la animación y comenzar hackeo tras 2 segundos
+    setTimeout(() => {
+      clearInterval(dotsInterval);
+      startHackEffect();
+    }, 2000);
+  }
+
+  // Iniciar el efecto de hackeo solo en el hostname
+  function startHackEffect() {
+    iteration = 0; // Resetear la iteración
+    clearInterval(interval);
+
+    // Iniciar el efecto de hackeo en el hostname solamente
+    interval = setInterval(() => {
+      hostnameElement.innerText = hostname
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return hostname[index];  // Muestra la letra original
+          }
+          // Muestra caracteres aleatorios para el "efecto hackeo"
+          return letters[Math.floor(Math.random() * letters.length)];
+        })
+        .join("");
+
+      // Detiene la animación cuando llega al final
+      if (iteration >= hostname.length) {
+        clearInterval(interval);
+      }
+
+      iteration += 1 / 3;  // Control de la velocidad de la animación
+    }, 90); // Se hace más lento (doble de velocidad) aumentando el intervalo
+  }
+
+  // Crear un MutationObserver para observar el cambio de display en el contenedor
+  const aboutContainer = document.getElementById("aboutCont");
+
+  // Configuración del observer para monitorear los cambios de atributos
+  const observer = new MutationObserver((mutationsList) => {
+    mutationsList.forEach((mutation) => {
+      // Cuando el display cambia a block, inicia la animación
+      if (mutation.type === "attributes" && mutation.attributeName === "style") {
+        const style = aboutContainer.style.display;
+        if (style === "block") {
+          // Iniciar el proceso de "LOADING..." y hackeo
+          setTimeout(showLoading, 200); // Retrasa la ejecución de showLoading por 500ms (0.5 segundos)
+
+          // Desconectar el observer para que no se ejecute más
+          observer.disconnect();
+        }
+      }
+    });
+  });
+
+  // Configuración del observer: monitorear los cambios de estilo
+  observer.observe(aboutContainer, {
+    attributes: true // Solo monitorea los cambios de atributos
+  });
+
+
+
+// Cargar la canción usando new Audio()
+const confSong = new Audio('assets/Mother Earth.mp3');  
+
+// Aquí puedes agregar configuraciones si quieres, como bucles o volumen
+confSong.loop = false; //  que se repita en bucle
+confSong.volume = 0.5;  //  ajusta el volumen entre 0 y 1
+
+// Función para mostrar u ocultar el contenedor y controlar la reproducción de la canción
+function toggleContainer2() {
+  const container = document.getElementById("configCont");
+  container.scrollTop = 0;
+
+  // Comprobar si el contenedor está visible o no
+  if (container.style.display === "none" || container.style.display === "") {
+    container.style.display = "block";  // Mostrar el contenedor
+
+    // Reproducir la canción
+    confSong.play();
+  } else {
+    container.style.display = "none";  // Ocultar el contenedor
+
+    // Detener la canción y reiniciarla
+    confSong.pause();
+    confSong.currentTime = 0;  // Reiniciar desde el principio
+  }
+}
+
+
+function closeWindow() {
+   
+    var container = document.getElementById("byeCont");
+    container.style.display = "block"
+  }
+
+
+  </script>
+
+</body>
+</html>
