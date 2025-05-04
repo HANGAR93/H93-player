@@ -1,0 +1,15 @@
+{
+  "name": "h93-records",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@makeitrealcamp/db-mock": "^1.1.0"
+  }
+}

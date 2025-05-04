@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H93 MusicPlayer</title>
+ <!-- Preload para el archivo CSS -->
+<link rel="preload" href="CSS/styles.css" as="style" />
+
+
+<link rel="stylesheet" href="CSS/styles.css">
+
+
+
+
+</head>
+<body>
+  <div id="appStartupOverlay">
+    <div class="loadingText">VCR INITIALIZING... STANDBY-ON</div>
+  </div>
+
+<div class="omni-filter">
+
+
+    <div class="bye-container" id="byeCont" style="display: none;">
+
+      
+</div>
+
+
+
+    <div class="config-container" id="configCont" style="display: none;">
+      <div class="lines" style="display: block;"></div>
+       <div class="playlist-wrap">
+
+        <h2>Create New Playlist!</h2>
+        <form id="newPlaylistForm">
+            <input type="text" id="playlistName" placeholder="Playlist name" required />
+            
+            <!-- Campo para agregar pistas -->
+            <div id="trackContainer">
+              <div class="track">
+                <input type="text" class="artist" placeholder="Artist" required />
+                <input type="text" class="title" placeholder="Title" required />
+                <label class="custom-file-label">
+                   Explore..
+                    <input type="file" class="trackFile" accept="audio/*" required hidden />
+                  </label>
+                <button type="button" class="removeTrack">Remove track</button>
+              </div>
+            </div>
+            
+            <!-- Botón para agregar más pistas -->
+            <button type="button" id="addTrackButton">Add track</button>
+            
+            <button type="submit" class="submitPlaylist">Create Playlist</button>
+            <p id="formMessage"></p>
+          </form>
+          
+        <h2>All Playlists</h2>
+        <div id="allPlaylistsContainer">
+         
+        </div>
+
+        
+
+  
+          <div id="editPlaylistContainer" style="display:none; border:1px solid #ccc; padding:1em; margin-top:1em;">
+            <!-- Aquí se inyectará el formulario de edición -->
+          </div>
+        
+          <div class="lastfm-info"></div>
+        </div>
+        <p class="back-text2" onclick="toggleContainer2()" style="cursor: pointer;">Click here to return to the menu</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="about-container" id="aboutCont" style="display: none;">
+      <div class="lines" style="display: block;"></div>
+      <div class="about-text">
+        <h1 class="system-info">SYSTEM INFO: <div id="hostname">LOADING...</div></h1>
+       
+          <section id="feedback">
+              <h2>Send me your Feedback!</h2>
+              <form id="feedbackForm">
+                <label class="f-f-conts" for="email">Your email (real if you want a reply):</label>
+                <input class="f-f-conts" type="email" name="email" id="email" placeholder="you@example.com" required />
+            
+                <label class="f-f-conts" for="message">Your message:</label>
+                <textarea class="f-f-conts" name="message" id="message" rows="5" placeholder="I wanna read your thoughts, feedback, or anything you'd like to share" required></textarea>
+            
+                <button type="submit">TRANSMIT</button>
+                <p id="statusMessage"></p>
+              </form>
+        
+            </section>
+        
+            <span>
+              Every bit of feedback is welcome — it helps me get better. 
+              <br>
+              <br>
+              Ty so much__
+            </span>
+            
+     
+       <div class="wrapper">
+              <div class="floor"></div> 
+              <div class="overlay2"></div>
+              <canvas id="canvas" width="600" height="150"></canvas>
+          </div>
+          <div class="wrapper" id="roof">
+              <div class="floor"></div> 
+              <div class="overlay2"></div>
+              <canvas id="canvas" width="600" height="150"></canvas>
+          </div>
+  
+      <p class="back-text" onclick="toggleContainer()" style="cursor: pointer;">Click here to return to the menu</p>
+      </div>
+  
+    </div>
+  
+
+
+  <div class="main" id="main-cont" style="display: none;">
+    
+    <div id="terminal-ia">
+      <div id="output-ia"></div>
+      <div class="cont-ib-ia">
+        <input id="ia-input" class="input-ia" type="text" id="input" placeholder="SAY HI..." /> 
+        <button id="ia-button" class="button-ia" onclick="processInput()">SEND SIGNAL
+        </button>
+      </div>
+     
+    
+    </div>
+    
+    <ul style="display: block;">
+      <li  id="goBtn"><span>  GO  </span></li>
+      <li ><span onclick="toggleContainer2()">CONFIG</span></li>
+      <li><span  onclick="toggleContainer()">FEED</span></li>
+      <li ><span onclick="closeWindow()">  BYE  </span></li>
+  </ul>
+
+    <div class="lines" style="display: block;"></div>
+    <section class="fx section-d" style="display: none;"></section>
+    <svg class="fx2" style="display: none;">
+      <filter id="noise">
+        <feTurbulence id="turbulence">
+          <animate
+            attributeName="baseFrequency"
+            dur="50s"
+            values="0.9 0.9;0.8 0.8; 0.9 0.9"
+            repeatCount="indefinite"
+          ></animate>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" scale="60"></feDisplacementMap>
+      </filter>
+    </svg>
+	<div class="vhs" data-splitting>PAUSE || </div>
+    <div class="ch">--:--</div>
+    <button id="toggleAudioBtn" onclick="toggleAudioByButton()">[SND: OFF]</button>
+    <button id="toggleClassBtn" onclick="toggleClass()">[FX: OFF]</button>
+    <div id="asciiDiv" style="display: none;"></div>
+
+
+
+<div id="quoteContainer">
+  <!-- Contenedor para la frase hasheada -->
+  <div id="quoteHashed"></div>
+  
+  <!-- Contenedor para la frase original (oculto por defecto) -->
+  <div id="quoteOriginal" class="hidden"></div>
+</div>
+
+    
+    
+    <div id="vhs-date" class="ch5"></div>
+    <div id="vhs-time" class="ch6"></div>
+    <div class="ch2">CH03</div>
+    <div class="ch3"> ●----*------●</div>
+    <div class="ch4"> SOURCE: EUROBEAT</div>
+    <div class="nameTag" >HANGAR93: MUSIC PLAYER</div>
+
+	<div class="counter">SP    <label id="hours">00</label>:<label id="minutes">00</label>:<label id="seconds">00</label></div>
+</div>
+
+
+
+    <!-- Nuevos controles -->
+    <input type="range" id="distortion-control" min="0" max="100" value="0" step="1">
+    <button id="delayBtn">((●))</button>
+    <input id="pitch-control" type="range" min="0" max="100" value="50" />
+
+
+
+    <input id="bassControl" type="range" value="0" min="-30" max="30">
+    
+   
+    <input id="trebleControl" type="range" value="0" min="-30" max="30">
+
+
+<input id="balanceControl" type="range" min="-1" max="1" step="0.01" value="0">
+
+   
+
+    <!-- Reproductor de audio -->
+    <audio id="audio" controls>
+      
+    </audio>
+
+    <!-- Controles -->
+    <div class="info-bar">PROGRESS
+    </div>
+    <div class="info-bar2">VOLUME
+    </div>
+    <div class="info-bar3">BASS
+    </div>
+    <div class="info-bar4">TREBLE
+    </div>
+    <div class="info-bar5">BALANCE
+    </div>
+    <div class="info-bar6">MIN
+    </div>
+    <div class="info-bar7">MAX
+    </div>
+    <div class="info-bar8">MIN
+    </div>
+    <div class="info-bar9">MAX
+    </div>
+    <div class="info-bar10">L
+    </div>
+    <div class="info-bar11">R
+    </div>
+    <div class="info-bar12">MIN
+    </div>
+    <div class="info-bar13">MAX
+    </div>
+    <div class="info-bar14">DISTORTION
+    </div>
+    <div class="info-bar15">SPEED
+    </div>
+    <div class="info-bar16">MIN
+    </div>
+    <div class="info-bar17">MAX
+    </div>
+    <div class="info-bar18">MIN
+    </div>
+    <div class="info-bar19">MAX
+    </div>
+    <div class="info-bar20">ECHO
+    </div>
+  
+
+
+
+    <button id="stopBtn">
+        <div class="icon-stop">
+            <div class="square3">
+            </div>
+        </div>
+    </button>
+
+
+    <button id="prevBtn">
+        <div class="icon-prev">
+            <div class="triangle">
+            </div>
+            <div class="triangle2">
+            </div>
+        </div>
+    </button>
+
+
+    <button id="playPauseBtn">
+        <div class="icon-play">
+        </div>
+        <div class="icon-pause">
+            <div class="square">
+            </div>
+            <div class="square2">
+            </div>
+        </div>
+    </button>
+   
+    <button id="nextBtn">
+        <div class="icon-next">
+            <div class="triangle3">
+            </div>
+            <div class="triangle4">
+            </div>
+        </div>
+    </button>
+    <input id="progressBar" type="range" value="0" min="0" max="100">
+    <input id="volumeControl" type="range" value="0.1" min="0" max="1" step="0.01">
+   
+
+
+       <!-- Logo en la esquina izquierda -->
+       <div class="logo">
+        <a href="#"><img src="assets/logoNegative.png" alt="logo" /><span class="laugh-sound">ワハハ!!</span></a>
+      </div>
+
+  <div class="cinta-container">
+    <div class="cinta">
+
+
+        <div class="xdd" style="display: none;" >*Wrrr-
+        </div>
+        
+        <div class="xdd" style="display:none;" id="xdd2">wrrr!*
+        </div>
+
+
+
+
+        <div class="logo-sticker">
+        </div>
+        <div class="logo-sticker2">
+        </div>
+        <div class="logo-sticker3">
+        </div>
+        <div class="logo-sticker4">
+        </div>
+
+
+        <div class="cara-cinta">A
+        </div>
+
+
+        <div class="minutes">∞
+        </div>
+        <div class="minutes2">min.
+        </div>
+        
+
+
+        <div class="cool">HANGAR93 OBSCENE RECORDS
+        </div>
+        <div class="cool2">
+        </div>
+        <div class="cool3">80s VIBES
+        </div>
+        <div class="cool4">失恋!
+        </div>
+        
+
+
+
+
+        <div class="tagnames">
+            <div class="index">INDEX
+            </div>
+           
+            <div class="indexline">
+            </div>
+            <div class="indexline2">
+            </div>
+            <div class="index2">NR.
+            </div>
+            <div class="index3">
+            </div>
+            <div class="index4">ON
+            </div>
+            <div class="index5">
+            </div>
+            <div class="index6">OFF
+            </div>
+            <div class="info"  id="trackArtist"  style="display: block;">
+            </div>
+            <div class="info2" id="trackTitle"   style="display: block;">
+            </div>
+        </div>
+        
+
+        <div class="marca">
+        </div>
+        
+        <div class="marca2">HANGAR93
+        </div>
+
+
+        <div class="rb3">
+        </div>
+      
+
+        <div class="cylinder" id="bobina">
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+
+           
+          </div>
+
+          <div class="cylinder" id="bobina2">
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+            <div class="face3"></div>
+
+          </div>
+
+        
+        <div class="bobina">
+        </div>
+        <div class="bobina2">
+        </div>
+        <div class="bobina3">
+        </div>
+
+
+        <div class="junta">
+        </div>
+        <div class="junta2">
+        </div>
+        <div class="junta3">
+        </div>
+        <div class="junta4">
+        </div>
+        <div class="junta5">
+        </div>
+        <div class="junta6">
+        </div>
+        <div class="junta7">
+        </div>
+        <div class="junta8">
+        </div>
+        <div class="junta9">
+        </div>
+        <div class="junta10">
+        </div>
+        <div class="junta11">
+        </div>
+
+
+
+
+
+
+        <div class="contenedorq">
+            <div class="agujeroq"></div>
+          </div>
+          
+          <div class="contenedorq2">
+            <div class="agujeroq"></div>
+          </div>
+          
+          <div class="contenedorq3">
+            <div class="agujeroq"></div>
+          </div>
+          
+          <div class="contenedorq4">
+            <div class="agujeroq"></div>
+          </div>
+          
+
+          <div class="rotorhole">
+        </div>
+        <div class="rotorhole2">
+        </div>
+        <div class="rotorhole3">
+        </div>
+        <div class="rotorhole4">
+        </div>
+
+        <div class="window">
+        </div>
+        <div class="window2">
+        </div>
+        <div class="window3">
+        </div>
+
+        <div class="cover">
+        </div>
+        <div class="cover2">
+        </div>
+        <div class="cover3">
+        </div>
+        <div class="cover4">
+        </div>
+        <div class="cover5">
+        </div>
+        <div class="cover6">
+        </div>
+        <div class="cover7">
+        </div>
+        <div class="cover8">
+        </div>
+
+
+
+
+
+        <div class="rotor">
+        </div>
+        <div class="rotor2">
+        </div>
+        <div class="rotor3">
+        </div>
+        <div class="rotor4">
+        </div>
+        <div class="rotor5">
+        </div>
+        <div class="rotor6">
+        </div>
+        <div class="rotor7">
+        </div>
+        <div class="rotor8">
+        </div>
+        <div class="rotor9">
+        </div>
+        <div class="rotor10">
+        </div>
+        <div class="rotor11">
+        </div>
+        <div class="rotor12">
+        </div>
+
+
+
+
+
+
+        <div class="borderotor">
+            <div class="muesca">  
+            </div>
+            <div class="muesca2">  
+            </div>
+            <div class="rotorsticker">SR  
+            </div>
+        </div>
+        <div class="borderotor2">
+            <div class="muesca3">  
+            </div>
+            <div class="muesca4"> 
+            </div>
+            <div class="rotorsticker2">TR 
+            </div>
+        </div>
+
+    <div class="contenedor">
+    
+    </div>
+
+
+
+        
+    <div class="contenedor2" >
+    
+</div>
+
+        
+
+
+        <div class="refuerzo">
+        </div>
+        <div class="refuerzo" id="refuerzo2">
+        </div>
+        <div class="refuerzo" id="refuerzo3">
+        </div>
+        <div class="refuerzo" id="refuerzo4">
+        </div>
+
+        <div class="hole">
+        </div>
+        <div class="hole2" ></div>
+        <div class="hole" id="holeb">
+        </div>
+        <div class="hole2" id="hole2b"></div>
+        <div class="hole" id="holec">
+        </div>
+        <div class="hole2" id="hole2c"></div>
+        <div class="hole" id="holed">
+        </div>
+        <div class="hole2" id="hole2d"></div>
+
+
+        <div class="hole" id="holee">
+        </div>
+        <div class="hole2" id="hole2e"></div>
+        <div class="hole" id="holef">
+        </div>
+        <div class="hole2" id="hole2f"></div>
+        <div class="hole" id="holeg">
+        </div>
+        <div class="hole2" id="hole2g"></div>
+        <div class="hole" id="holeh">
+        </div>
+        <div class="hole2" id="hole2h"></div>
+
+        <div class="pestaña"></div>
+        <div class="pestaña" id="pes1"></div>
+        <div class="pestaña" id="pes2"></div>
+        <div class="pestaña" id="pes3"></div>
+
+        <div class="pestaña2"></div>
+        <div class="pestaña2" id="pes2b"></div>
+
+        <div class="pestaña3"></div>
+        <div class="pestaña3" id="pes3b"></div>
+        <div class="pestaña3" id="pes3c"></div>
+        <div class="pestaña3" id="pes3d"></div>
+
+        <div class="base"></div>
+        <div class="base" id="base2"></div>
+        <div class="base" id="base3"></div>
+        <div class="base" id="base4"></div>
+
+        <div class="baseb"></div>
+        <div class="baseb" id="base2b"></div>
+        <div class="baseb" id="base3b"></div>
+        <div class="baseb" id="base4b"></div>
+
+
+        <div class="soporte"></div>
+        <div class="soporte" id="soporteb"></div>
+        <div class="soporte2"></div>
+        <div class="soporte2"  id="soporte2b"></div>
+        <div class="soporte2"  id="soporte2c"></div>
+        <div class="soporte2"  id="soporte2d"></div>
+        <div class="soporte2"  id="soporte2e"></div>
+        <div class="soporte2"  id="soporte2f"></div>
+        <div class="soporte2"  id="soporte2g"></div>
+        <div class="soporte2"  id="soporte2h"></div>
+        <div class="soporte2"  id="soporte2i"></div>
+        <div class="soporte2"  id="soporte2j"></div>
+        <div class="soporte2"  id="soporte2k"></div>
+        <div class="soporte2"  id="soporte2l"></div>
+        <div class="soporte2"  id="soporte2m"></div>
+
+        <div class="soporte3"></div>
+        <div class="soporte3" id="soporte3b"></div>
+        
+        <div class="soporteTurn">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="soporteTurn" id="turnI">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="soporteTurn" id="turnIA">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="soporteTurn" id="turnDA">
+            <div class="soporte4"></div>
+        </div>
+
+        <div class="hlc"></div>
+        <div class="hlc" id="hlci"></div>
+        <div class="hlc" id="hlcd"></div>
+        <div class="hlc" id="hlcip"></div>
+        <div class="hlc" id="hlcdp"></div>
+
+        <div class="hlc" id="hlcb"></div>
+        <div class="hlc" id="hlcib"></div>
+        <div class="hlc" id="hlcdb"></div>
+        <div class="hlc" id="hlcipb"></div>
+        <div class="hlc" id="hlcdpb"></div>
+
+      <div class="ht" id="h1"></div>
+      <div class="ht" id="h2"></div>
+      <div class="ht" id="h3"></div>
+      <div class="ht" id="h4"></div>
+      <div class="ht" id="hcentral"></div>
+    
+      <div class="ht" id="h5">
+        <div class="star"></div>
+      </div>
+      <div class="ht" id="h6">
+        <div class="star"></div>
+      </div>
+      <div class="ht" id="h7">
+        <div class="star"></div>
+      </div>
+      <div class="ht" id="h8">
+        <div class="star"></div>
+      </div>
+
+      <div class="ht" id="h9central">
+        <div class="star"></div>
+      </div>
+
+      <div class="rb"></div>
+
+    
+
+      <div class="carcasa izquierda"></div>
+      <div class="borde" id="borde1"></div>
+      <div class="borde" id="borde2"></div>
+
+      <div class="borde2" id="b2a"></div>
+      <div class="borde2" id="b2b"></div>
+      <div class="borde2" id="b2c"></div>
+      <div class="borde2" id="b2d"></div>
+      <div class="borde2" id="b2e"></div>
+      <div class="borde2" id="b2f"></div>
+      <div class="borde2" id="b2g"></div>
+      <div class="borde2" id="b2h"></div>
+      
+      <div class="rb2" id="rb2a"></div>
+      <div class="rb2"  id="rb2b"></div> 
+      <div class="rb2" id="rb2ab"></div>
+      <div class="rb2"  id="rb2bb"></div> 
+      <div class="carcasa derecha"></div>
+
+
+
+      <div class="cpolea"></div>
+      <div class="cpolea" id="cpoleab"></div>
+      <div class="cpolea" id="cpoleac"></div>
+      <div class="cpolea" id="cpolead"></div>
+
+
+      
+      <div class="cpolea2">
+        <div class="stickerpolea"></div>
+      </div>
+      <div class="cpolea2" id="cpolea2b">
+        <div class="stickerpolea2"></div>
+      </div>
+
+      <div class="cpolea3"></div>
+      <div class="cpolea3" id="cpolea3b"></div>
+      <div class="cpolea3" id="cpolea3c"></div>
+      <div class="cpolea3" id="cpolea3d"></div>
+
+
+      
+      
+    </div>
+  </div>
+  <script src="JS/BD.js" defer></script>
+  <script src="JS/mainLogic.js" defer></script>
+  <script  src="JS/ascii-frames.js" defer></script>
+  <script  src="JS/cubo-stored.js" defer></script>
+  <script  src="JS/cylynders.stored.js" defer ></script>
+  <script  src="JS/feedback-dispenser.js" defer></script>
+  <script  src="JS/bye-dispenser.js" defer></script>
+  <script  src="IA/ia-code.js" preload></script>
+  <script  src="JS/quote-dispenser.js" defer></script>
+  <script src="JS/intro.js" preload></script>
+  <script src="JS/notSpotify.js" defer></script>
+  <script  defer>
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+  
+      const form = event.target;
+      const data = new FormData(form);
+      const status = document.getElementById('statusMessage');
+  
+      fetch('https://formspree.io/f/meoabndb', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data
+      })
+      .then(response => {
+        if (response.ok) {
+          status.textContent = 'Feedback sent successfully!';
+          status.classList.remove('error');
+          form.reset();
+        } else {
+          response.json().then(data => {
+            status.textContent = data.errors?.[0]?.message || 'Submission error.';
+            status.classList.add('error');
+          });
+        }
+  
+        // Clear status message after 3 seconds
+        setTimeout(() => {
+          status.textContent = '';
+          status.classList.remove('error');
+        }, 3000);
+      })
+      .catch(error => {
+        status.textContent = 'Network error.';
+        status.classList.add('error');
+  
+        // Clear error message after 3 seconds
+        setTimeout(() => {
+          status.textContent = '';
+          status.classList.remove('error');
+        }, 3000);
+      });
+    });
+  </script>
+  
+</div>
+</body>
+</html>
