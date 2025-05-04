@@ -1,0 +1,24 @@
+/* Ocultar la barra de herramientas */
+#navigator-toolbox {
+  display: none !important;
+}
+
+/* Ocultar la barra de direcciones */
+#urlbar {
+  display: none !important;
+}
+
+/* Ocultar la barra de búsqueda */
+#search-container {
+  display: none !important;
+}
+
+/* Ocultar el menú de la parte superior */
+#toolbar-menubar {
+  display: none !important;
+}
+
+/* Opcional: Ocultar la barra de pestañas */
+#TabsToolbar {
+  display: none !important;
+}
