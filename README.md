@@ -1,49 +1,58 @@
-# 🎧 HANGAR93 (provisional)
+# 🎧 HANGAR93
 
-**HANGAR93** is a lightweight music player app where you can create and manage your own playlists. Built entirely with **JavaScript** and **CSS**, it uses no frameworks or image files—just pure code.
+**HANGAR93** is a pseudo-native music player app designed to offer a personalized and fully local experience. Developed entirely with **JavaScript** and **CSS**, without external dependencies or images, the app allows you to create and manage personalized playlists, all stored securely in **IndexedDB**. Its design is visually striking, with a retro-style interface built entirely with **pure CSS**.
 
 ---
 
 ## 🚀 Features
 
-- 🎵 Add and edit tracks manually
-- 📂 Create, rename, and organize playlists
-- 🧠 Basic AI features integrated for smarter interactions
-- 💾 Data is stored in **Local Storage** (no backend needed)
-- 📝 Feedback system included
-- 💡 Retro-themed UI built with pure CSS
+- 🎵 **Add and edit tracks manually**: Create and customize your own playlists.
+- 📂 **Manage playlists**: Organize, rename, and sort your tracks effortlessly.
+- 🧠 **Basic AI functionality**: Powered by **OpenAI GPT-3.5**, providing smarter user interactions.
+- 💾 **Local storage**: Data is stored in **IndexedDB**, with no need for external servers.
+- 📝 **Feedback system**: Share and receive feedback within the app.
+- 💡 **Retro UI**: Styled with a vintage aesthetic, using only **pure CSS**.
 
 ---
 
 ## 📱 Pseudo-Native Experience
 
 HANGAR93 is designed to behave like a native app:
-- Fast performance
-- Local persistence
-- Responsive design
-- Works offline (after initial load)
+- 🚀 **Visually striking performance**: The app is designed to be dynamic and visually appealing.
+- 💾 **Local persistence**: All data is stored locally on your device.
+- 📱 **Responsive design**: The app works across different screen resolutions.
+- 🌐 **Offline functionality**: The app does not work offline—an internet connection is required.
 
 ---
 
 ## 🧪 Technologies Used
 
 - **Vanilla JavaScript**
-- **Pure CSS**
-- **Last.fm API**
-- **LocalStorage**
-- **No images, no frameworks**
+- **Pure CSS** (no frameworks)
+- **OpenAI GPT-3.5** (for basic AI features)
+- **IndexedDB** (for local storage)
+- **No images, no frameworks**: Just pure code for optimized performance.
 
 ---
 
-## 🆕 Big Update
+## 🆕 Latest Updates
 
-- ✅ Now works as a pseudo-native app  
-- 🤖 Integrated basic AI functionality  
-- 💾 Uses Local Storage as a lightweight database  
-- 📬 Feedback system added  
+- ✅ **Now works as a pseudo-native app**: Provides a fast and smooth user experience.
+- 🤖 **AI integration with OpenAI GPT-3.5**: Enhances user interactions with basic AI features.
+- 💾 **Uses IndexedDB for local storage**: All data is stored locally on your device.
+- 📬 **Feedback system**: You can now provide feedback directly within the app.
 
 ---
 
 ## 🛠️ How to Use
 
-(coming soon)
+1. **Download the files** (coming soon).
+2. **Run the .exe file**: No additional installation required.
+3. Enjoy your music and manage your personalized playlists directly from the app.
+
+---
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
