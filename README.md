@@ -5,7 +5,6 @@
 ---
 
 ## 🚀 Features
-
 - 🎵 **Add and edit tracks manually**: Create and customize your own playlists.
 - 📂 **Manage playlists**: Organize, rename, and sort your tracks effortlessly.
 - 🧠 **Basic AI functionality**: Powered by **OpenAI GPT-3.5**, providing smarter user interactions.
@@ -46,11 +45,16 @@ HANGAR93 is designed to behave like a native app:
 
 ## 🛠️ How to Use
 
-1. **Download the files** (coming soon).
+1. **Download the app**: [Download HANGAR93 v1.1.0](https://www.mediafire.com/file/a3bq4y4jx0f88ih/H93.rar/file)
 2. **Run the .exe file**: No additional installation required.
 3. Enjoy your music and manage your personalized playlists directly from the app.
 
 ---
+
+### 📝 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) ![MIT License](https://img.shields.io/badge/License-MIT-green)
+
 
 ### License
 
