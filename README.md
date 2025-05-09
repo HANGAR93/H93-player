@@ -30,7 +30,7 @@ HANGAR93 is designed to behave like a native app:
 - **Pure CSS** (no frameworks)
 - **OpenAI GPT-3.5** (for basic AI features)
 - **IndexedDB** (for local storage)
-- **No images, no frameworks**: Just pure code for optimized performance.
+- **No images, no frameworks**: Just pure code.
 
 ---
 
@@ -45,7 +45,7 @@ HANGAR93 is designed to behave like a native app:
 
 ## 🛠️ How to Use
 
-1. **Download the app**: [Download HANGAR93 v1.1.0](https://www.mediafire.com/file/a3bq4y4jx0f88ih/H93.rar/file)
+1. **Download the app**: [Download HANGAR93 v1.1.1](https://www.mediafire.com/file/a3bq4y4jx0f88ih/H93.rar/file)
 2. **Run the .exe file**: No additional installation required.
 3. Enjoy your music and manage your personalized playlists directly from the app.
 
@@ -56,7 +56,4 @@ HANGAR93 is designed to behave like a native app:
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) ![MIT License](https://img.shields.io/badge/License-MIT-green)
 
 
-### License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
