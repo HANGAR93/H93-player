@@ -45,7 +45,7 @@ HANGAR93 is designed to behave like a native app:
 
 ## 🛠️ How to Use
 
-1. **Download the app**: [Download HANGAR93 v1.1.1](https://www.mediafire.com/file/a3bq4y4jx0f88ih/H93.rar/file)
+1. **Download the app**: [Download HANGAR93 v1.1.2](https://www.mediafire.com/file/0c0a9yw2wquv41p/H93.rar/file)
 2. **Run the .exe file**: No additional installation required.
 3. Enjoy your music and manage your personalized playlists directly from the app.
 
