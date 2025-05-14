@@ -1,13 +1,16 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('appStartupOverlay');
-  
+  const overlay = document.getElementById('appStartupOverlay');
+
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+
     setTimeout(() => {
-      overlay.classList.add('hidden');
-  
-      
-      setTimeout(() => {
-        overlay.remove();
-      }, 1000);
-    }, 4000); 
-  });
-  
+      overlay.remove();
+
+     
+      isCounting = true;
+      startTimer();
+
+    }, 1000); 
+  }, 4000);
+});
